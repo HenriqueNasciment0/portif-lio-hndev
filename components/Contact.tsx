@@ -88,13 +88,13 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="surface-card rounded-[2rem] p-8">
+            <div className="surface-card rounded-[2rem] p-6 sm:p-8">
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                <div className="flex shrink-0 size-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <BriefcaseBusiness size={22} />
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">Disponivel para projetos</h3>
+                <div className="min-w-0">
+                  <h3 className="text-lg font-semibold text-foreground sm:text-xl">Disponivel para projetos</h3>
                   <p className="text-sm text-muted-foreground">Freelas, consultoria e oportunidades CLT/PJ</p>
                 </div>
               </div>
@@ -108,12 +108,12 @@ export default function Contact() {
                     rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
                     className="flex items-center gap-4 rounded-3xl border border-border/70 bg-background/70 p-4 transition-colors hover:border-primary/30"
                   >
-                    <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <div className="flex shrink-0 size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                       <Icon size={20} />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm text-muted-foreground">{label}</p>
-                      <p className="font-medium text-foreground">{value}</p>
+                      <p className="truncate font-medium text-foreground">{value}</p>
                     </div>
                   </a>
                 ))}
@@ -136,7 +136,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="surface-card rounded-[2rem] p-8 sm:p-10"
+            className="surface-card rounded-[2rem] p-6 sm:p-8 lg:p-10"
           >
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-foreground">Iniciar uma conversa</h3>

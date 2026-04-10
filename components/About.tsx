@@ -42,51 +42,73 @@ export default function About() {
           </h2>
         </motion.div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          {/* Coluna esquerda: bio + Produto com impacto */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="surface-card rounded-[2rem] p-8 sm:p-10"
+            className="flex flex-col gap-5"
           >
-            <p className="text-lg leading-8 text-muted-foreground">
-              Sou desenvolvedor <strong className="text-foreground">full stack</strong>, formado
-              pela Trybe, atuando desde 2022 na construcao de aplicacoes web e mobile com foco em
-              produtos que precisam funcionar bem em producao.
-            </p>
+            <div className="surface-card rounded-[2rem] p-8 sm:p-10">
+              <p className="text-lg leading-8 text-muted-foreground">
+                Sou desenvolvedor <strong className="text-foreground">full stack</strong>, formado
+                pela Trybe, atuando desde 2022 na construcao de aplicacoes web e mobile com foco em
+                produtos que precisam funcionar bem em producao.
+              </p>
 
-            <p className="text-lg leading-8 text-muted-foreground">
-              Minha base mais forte esta em <strong className="text-foreground">Node.js, TypeScript,
-              Next.js, NestJS, PostgreSQL, MySQL e React Native</strong>. Tambem venho explorando
-              Go e Rust para ampliar repertorio de performance, concorrencia e arquitetura.
-            </p>
+              <p className="text-lg leading-8 text-muted-foreground">
+                Minha base mais forte esta em{' '}
+                <strong className="text-foreground">
+                  Node.js, TypeScript, Next.js, NestJS, PostgreSQL, MySQL e React Native
+                </strong>
+                . Tambem venho explorando Go e Rust para ampliar repertorio de performance,
+                concorrencia e arquitetura.
+              </p>
 
-            <p className="text-lg leading-8 text-muted-foreground">
-              O diferencial que quero comunicar no portfólio e o mesmo que busco nos projetos:
-              capacidade de sair da interface e chegar ate deploy, monitoramento, integrações e
-              automacoes reais.
-            </p>
+              <p className="text-lg leading-8 text-muted-foreground">
+                O diferencial que quero comunicar no portfólio e o mesmo que busco nos projetos:
+                capacidade de sair da interface e chegar ate deploy, monitoramento, integrações e
+                automacoes reais.
+              </p>
 
-            <div className="grid gap-4 pt-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
-                <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                  <MapPin size={18} />
-                  Base
+              <div className="grid gap-4 pt-4 sm:grid-cols-2">
+                <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
+                  <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <MapPin size={18} />
+                    Base
+                  </div>
+                  <p className="text-lg font-semibold text-foreground">Fortaleza, Ceara - Brasil</p>
                 </div>
-                <p className="text-lg font-semibold text-foreground">Fortaleza, Ceara - Brasil</p>
-              </div>
 
-              <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
-                <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                  <Calendar size={18} />
-                  Jornada
+                <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
+                  <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <Calendar size={18} />
+                    Jornada
+                  </div>
+                  <p className="text-lg font-semibold text-foreground">Construindo desde 2022</p>
                 </div>
-                <p className="text-lg font-semibold text-foreground">Construindo desde 2022</p>
               </div>
             </div>
+
+            {/* Produto com impacto — abaixo do card de bio */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.16 }}
+              viewport={{ once: true }}
+              className="surface-card rounded-[2rem] p-7"
+            >
+              <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                <Activity size={24} />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground">{strengths[2].title}</h3>
+              <p className="mt-3 leading-7 text-muted-foreground">{strengths[2].description}</p>
+            </motion.div>
           </motion.div>
 
+          {/* Coluna direita: Entrega + Visao de operacao + Direcao */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -94,9 +116,8 @@ export default function About() {
             viewport={{ once: true }}
             className="space-y-5"
           >
-            {strengths.map((item, index) => {
+            {strengths.slice(0, 2).map((item, index) => {
               const Icon = item.icon;
-
               return (
                 <motion.div
                   key={item.title}

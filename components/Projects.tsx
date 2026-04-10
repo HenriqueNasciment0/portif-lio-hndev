@@ -39,15 +39,15 @@ function ProjectImage({
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </>
         ) : (
-          <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
+          <div className="flex h-full items-center justify-center bg-zinc-950 p-6 text-center [background-image:radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_60%)]">
             <div className="space-y-3">
-              <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-white/8 text-white/50">
                 <ImageIcon className="size-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-foreground">{title}</p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Adicione a imagem em {src.replace(/^\//, '')}
+                <p className="text-sm font-semibold text-white/70">{title}</p>
+                <p className="mt-2 text-xs leading-6 text-white/30">
+                  {src.replace(/^\//, '')}
                 </p>
               </div>
             </div>

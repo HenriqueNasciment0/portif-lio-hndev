@@ -117,7 +117,7 @@ export const inProgressProjects: PortfolioProject[] = [
     impact:
       'Case forte por combinar portfólio visual, funil comercial e camada administrativa.',
     technologies: ['Next.js', 'TypeScript', 'Contratos', 'Gestao de Locacoes'],
-    imageSrc: '/images/projects/fotografa-cover.webp',
+    imageSrc: '',
     imageHint: 'Print da galeria premium ou da tela de contratos/servicos.',
     highlights: [
       'Exibicao de acervo com experiencia premium.',
@@ -133,7 +133,7 @@ export const inProgressProjects: PortfolioProject[] = [
     impact:
       'Acrescenta maturidade ao portfólio por mostrar rastreio financeiro, mobilidade e foco em usabilidade cotidiana.',
     technologies: ['React Native', 'Expo', 'TypeScript', 'Relatorios', 'Mobile UX'],
-    imageSrc: '/images/projects/recibos-mobile-cover.webp',
+    imageSrc: '',
     imageHint: 'Print da tela de listagem de recibos ou do relatorio consolidado.',
     highlights: [
       'Cadastro e controle de comprovantes e despesas.',
