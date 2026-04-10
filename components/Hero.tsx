@@ -46,24 +46,24 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden px-4 pb-16 pt-6 sm:px-6 lg:px-8"
+      className="relative flex min-h-[calc(100vh-5rem)] items-center overflow-hidden px-4 pb-18 pt-8 sm:px-6 sm:pb-16 lg:px-8 lg:pt-12"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.18),_transparent_36%),radial-gradient(circle_at_80%_20%,_rgba(59,130,246,0.18),_transparent_32%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.12),_transparent_32%),radial-gradient(circle_at_80%_20%,_rgba(14,165,233,0.22),_transparent_34%)]" />
         <div className="absolute inset-0 opacity-[0.18] dark:opacity-[0.08] [background-image:linear-gradient(rgba(100,116,139,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.18)_1px,transparent_1px)] [background-size:72px_72px]" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-12">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:min-h-[42rem] lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,24rem)] lg:gap-16 xl:grid-cols-[minmax(0,1.2fr)_minmax(22rem,26rem)]">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="order-2 max-w-4xl lg:order-1"
+          className="order-2 flex max-w-4xl flex-col justify-center lg:order-1 lg:max-w-none"
         >
           <div className="space-y-6">
-            <div className="max-w-[900px]">
-              <div className="rounded-[2rem] border border-border/70 bg-card/55 px-3 py-4 shadow-2xl shadow-primary/10 backdrop-blur-md sm:px-6 sm:py-5">
-                <div className="hidden sm:block">
+            <div className="max-w-[980px]">
+              <div className="rounded-[2rem] border border-border/70 bg-card/55 px-3 py-4 shadow-2xl shadow-primary/10 backdrop-blur-md sm:px-6 sm:py-5 lg:px-7 lg:py-6">
+                <div className="hidden md:block">
                   <TextPressure
                     text="Henrique Nascimento"
                     flex
@@ -73,11 +73,11 @@ export default function Hero() {
                     weight
                     italic
                     textColor="var(--foreground)"
-                    minFontSize={72}
+                    minFontSize={86}
                   />
                 </div>
 
-                <div className="sm:hidden">
+                <div className="md:hidden">
                   <TextPressure
                     text="Henrique"
                     flex
@@ -87,13 +87,13 @@ export default function Hero() {
                     weight
                     italic
                     textColor="var(--foreground)"
-                    minFontSize={54}
+                    minFontSize={52}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex min-h-12 items-center overflow-hidden text-lg font-medium text-muted-foreground sm:text-2xl">
+            <div className="flex min-h-14 items-center overflow-hidden text-lg font-medium text-muted-foreground sm:text-2xl lg:text-[1.8rem]">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWord}
@@ -111,7 +111,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg"
+              className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg lg:max-w-2xl lg:text-[1.12rem] lg:leading-9"
             >
               Desenvolvo produtos digitais do conceito ao ambiente de producao. Meu trabalho passa
               por arquitetura backend, interfaces de alta conversao, deploy em VPS, monitoramento
@@ -123,11 +123,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
+            className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:mt-10"
           >
             <Button
               size="lg"
-              className="rounded-full px-7 text-sm font-semibold shadow-xl shadow-primary/25 sm:w-auto"
+              className="rounded-full px-7 text-sm font-semibold shadow-xl shadow-primary/25 sm:w-auto lg:h-12"
               onClick={() => scrollToSection('#projects')}
             >
               Ver projetos estrategicos
@@ -137,7 +137,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="lg"
-              className="rounded-full border-primary/35 bg-background/40 px-7 text-sm font-semibold backdrop-blur sm:w-auto"
+              className="rounded-full border-primary/35 bg-background/40 px-7 text-sm font-semibold backdrop-blur sm:w-auto lg:h-12"
               onClick={() => scrollToSection('#contact')}
             >
               Conversar sobre uma oportunidade
@@ -148,7 +148,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="mt-8 flex flex-wrap items-center gap-4"
+            className="mt-8 flex flex-wrap items-center gap-3 lg:mt-10"
           >
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <motion.a
@@ -172,7 +172,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: 32 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
-          className="surface-card surface-glow order-1 rounded-[2rem] p-5 sm:p-6 lg:order-2"
+          className="surface-card surface-glow order-1 rounded-[2rem] p-5 sm:p-6 lg:order-2 lg:self-center"
         >
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
@@ -182,14 +182,14 @@ export default function Hero() {
           </div>
 
           <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-border/70 bg-background/60">
-            <div className="relative aspect-[4/5]">
+            <div className="relative aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5]">
               <Image
                 src="/images/profile/henrique-profile.webp"
                 alt="Foto de perfil de Henrique Nascimento"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 384px"
-                className="object-cover object-center"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 28rem, 26rem"
+                className="object-cover object-center lg:object-top"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5">
                 <p className="text-lg font-semibold text-white">Henrique Nascimento</p>

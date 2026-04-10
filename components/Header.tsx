@@ -52,21 +52,21 @@ export default function Header({ className = '' }: HeaderProps) {
           : 'bg-transparent'
       } ${className}`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex cursor-pointer items-center gap-3"
+          className="min-w-0 flex cursor-pointer items-center gap-3"
           onClick={() => scrollToSection('#hero')}
         >
           <div className="flex size-11 items-center justify-center rounded-2xl border border-border/70 bg-card/80 text-sm font-black tracking-[0.3em] text-primary shadow-sm backdrop-blur">
             HN
           </div>
-          <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.28em] text-primary/80">
+          <div className="min-w-0">
+            <div className="truncate text-sm font-semibold uppercase tracking-[0.22em] text-primary/80 sm:tracking-[0.28em]">
               Henrique
             </div>
-            <div className="text-sm text-muted-foreground">Full Stack Engineer</div>
+            <div className="hidden text-sm text-muted-foreground sm:block">Full Stack Engineer</div>
           </div>
         </motion.div>
 
@@ -98,9 +98,7 @@ export default function Header({ className = '' }: HeaderProps) {
           </motion.button>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-
+        <div className="shrink-0 md:hidden">
           <motion.button
             whileTap={{ scale: 0.94 }}
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
@@ -114,35 +112,56 @@ export default function Header({ className = '' }: HeaderProps) {
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.22 }}
-            className="border-b border-border/60 bg-background/96 px-4 pb-5 backdrop-blur-xl md:hidden"
-          >
-            <div className="mx-auto flex max-w-7xl flex-col gap-2">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.href}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="rounded-2xl border border-border/60 bg-card/80 px-4 py-3 text-left text-sm font-medium text-foreground"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 top-[68px] bg-black/20 backdrop-blur-[2px] md:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.22 }}
+              className="border-b border-border/60 bg-background/96 px-4 pb-5 backdrop-blur-xl md:hidden"
+            >
+              <div className="mx-auto flex max-w-7xl flex-col gap-3">
+                <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-card/70 p-2">
+                  <div className="min-w-0 px-2">
+                    <p className="truncate text-sm font-semibold text-foreground">Navegação</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      Tema e atalhos para as principais seções
+                    </p>
+                  </div>
+                  <div className="shrink-0">
+                    <ThemeToggle />
+                  </div>
+                </div>
 
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                onClick={() => scrollToSection('#contact')}
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
-              >
-                Iniciar conversa
-                <ArrowRight className="size-4" />
-              </motion.button>
-            </div>
-          </motion.div>
+                {navItems.map((item) => (
+                  <motion.button
+                    key={item.href}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => scrollToSection(item.href)}
+                    className="rounded-2xl border border-border/60 bg-card/80 px-4 py-3 text-left text-sm font-medium text-foreground"
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => scrollToSection('#contact')}
+                  className="mt-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+                >
+                  Iniciar conversa
+                  <ArrowRight className="size-4" />
+                </motion.button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>
