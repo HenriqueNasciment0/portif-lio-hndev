@@ -1,4 +1,6 @@
 'use client';
+import Image from 'next/image';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Clock3, Github, ImageIcon } from 'lucide-react';
 import {
@@ -15,25 +17,42 @@ import { featuredProjects, inProgressProjects } from '@/lib/site-data';
 function ProjectImage({
   src,
   title,
-  hint,
 }: {
   src: string;
   title: string;
-  hint: string;
 }) {
+  const [hasError, setHasError] = useState(false);
+
   return (
     <div className="overflow-hidden rounded-[1.6rem] border border-border/70 bg-background/70">
-      <div className="flex aspect-[16/10] items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
-        <div className="space-y-3">
-          <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-            <ImageIcon className="size-5" />
+      <div className="relative aspect-[16/10]">
+        {!hasError ? (
+          <>
+            <Image
+              src={src}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 620px"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+              onError={() => setHasError(true)}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
+            <div className="space-y-3">
+              <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <ImageIcon className="size-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">{title}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Adicione a imagem em {src.replace(/^\//, '')}
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-semibold text-foreground">{title}</p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">{hint}</p>
-            <p className="mt-2 text-xs font-medium text-foreground">{src.replace(/^\//, '')}</p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -69,14 +88,11 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -8 }}
+              className="group"
             >
               <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
                 <CardHeader className="px-6 pt-6">
-                  <ProjectImage
-                    src={project.imageSrc}
-                    title={`Preview de ${project.title}`}
-                    hint={project.imageHint}
-                  />
+                  <ProjectImage src={project.imageSrc} title={`Preview de ${project.title}`} />
 
                   <div className="mb-5 flex flex-wrap items-center gap-3">
                     <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
@@ -180,14 +196,11 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 viewport={{ once: true }}
+                className="group"
               >
                 <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
                   <CardHeader className="px-6 pt-6">
-                    <ProjectImage
-                      src={project.imageSrc}
-                      title={`Preview de ${project.title}`}
-                      hint={project.imageHint}
-                    />
+                    <ProjectImage src={project.imageSrc} title={`Preview de ${project.title}`} />
                     <span className="w-fit rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-semibold text-muted-foreground">
                       {project.status}
                     </span>

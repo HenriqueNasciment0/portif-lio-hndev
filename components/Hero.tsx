@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ArrowRight, ChevronDown, Github, ImageIcon, Linkedin, Mail } from 'lucide-react';
@@ -45,23 +46,23 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden px-4 pb-16 pt-10 sm:px-6 lg:px-8"
+      className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden px-4 pb-16 pt-6 sm:px-6 lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.18),_transparent_36%),radial-gradient(circle_at_80%_20%,_rgba(59,130,246,0.18),_transparent_32%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.12),_transparent_32%),radial-gradient(circle_at_80%_20%,_rgba(14,165,233,0.22),_transparent_34%)]" />
         <div className="absolute inset-0 opacity-[0.18] dark:opacity-[0.08] [background-image:linear-gradient(rgba(100,116,139,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.18)_1px,transparent_1px)] [background-size:72px_72px]" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_23rem]">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-12">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="max-w-4xl"
+          className="order-2 max-w-4xl lg:order-1"
         >
           <div className="space-y-6">
             <div className="max-w-[900px]">
-              <div className="rounded-[2rem] border border-border/70 bg-card/55 px-4 py-5 shadow-2xl shadow-primary/10 backdrop-blur-md sm:px-6">
+              <div className="rounded-[2rem] border border-border/70 bg-card/55 px-3 py-4 shadow-2xl shadow-primary/10 backdrop-blur-md sm:px-6 sm:py-5">
                 <div className="hidden sm:block">
                   <TextPressure
                     text="Henrique Nascimento"
@@ -92,7 +93,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="flex h-10 items-center overflow-hidden text-lg font-medium text-muted-foreground sm:text-2xl">
+            <div className="flex min-h-12 items-center overflow-hidden text-lg font-medium text-muted-foreground sm:text-2xl">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWord}
@@ -122,11 +123,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-8 flex flex-col gap-4 sm:flex-row"
+            className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
           >
             <Button
               size="lg"
-              className="rounded-full px-7 text-sm font-semibold shadow-xl shadow-primary/25"
+              className="rounded-full px-7 text-sm font-semibold shadow-xl shadow-primary/25 sm:w-auto"
               onClick={() => scrollToSection('#projects')}
             >
               Ver projetos estrategicos
@@ -136,7 +137,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="lg"
-              className="rounded-full border-primary/35 bg-background/40 px-7 text-sm font-semibold backdrop-blur"
+              className="rounded-full border-primary/35 bg-background/40 px-7 text-sm font-semibold backdrop-blur sm:w-auto"
               onClick={() => scrollToSection('#contact')}
             >
               Conversar sobre uma oportunidade
@@ -171,7 +172,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: 32 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
-          className="surface-card surface-glow rounded-[2rem] p-6"
+          className="surface-card surface-glow order-1 rounded-[2rem] p-5 sm:p-6 lg:order-2"
         >
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
@@ -180,22 +181,21 @@ export default function Hero() {
             <h2 className="mt-2 text-2xl font-semibold text-foreground">Perfil de entrega</h2>
           </div>
 
-          <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-dashed border-border/70 bg-background/60">
-            <div className="flex aspect-[4/5] items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
-              <div className="space-y-3">
-                <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <ImageIcon className="size-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">Foto de perfil</p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    Coloque sua foto em
-                    <br />
-                    <span className="font-medium text-foreground">
-                      public/images/profile/henrique-profile.webp
-                    </span>
-                  </p>
-                </div>
+          <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-border/70 bg-background/60">
+            <div className="relative aspect-[4/5]">
+              <Image
+                src="/images/profile/henrique-profile.webp"
+                alt="Foto de perfil de Henrique Nascimento"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 384px"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5">
+                <p className="text-lg font-semibold text-white">Henrique Nascimento</p>
+                <p className="mt-1 text-sm text-white/80">
+                  Full stack engineer com foco em produto, deploy e operacao.
+                </p>
               </div>
             </div>
           </div>
