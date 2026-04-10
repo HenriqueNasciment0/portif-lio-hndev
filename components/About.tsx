@@ -1,53 +1,89 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin } from 'lucide-react';
+import { Activity, Calendar, MapPin, Rocket, ShieldCheck } from 'lucide-react';
+
+const strengths = [
+  {
+    icon: Rocket,
+    title: 'Entrega ponta a ponta',
+    description:
+      'Participo de discovery, modelagem tecnica, implementacao, deploy, monitoramento e evolucao continua.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Visao de operacao',
+    description:
+      'Penso em observabilidade, ambiente, automacao, estabilidade e sustentacao do produto apos o go-live.',
+  },
+  {
+    icon: Activity,
+    title: 'Produto com impacto',
+    description:
+      'Priorizo interfaces claras, performance e automacoes que melhoram conversao e reduzem trabalho manual.',
+  },
+];
 
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4 bg-white dark:bg-gray-800">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 max-w-3xl"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            Sobre Mim
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
+            Perfil profissional
+          </p>
+          <h2 className="text-3xl font-semibold text-foreground md:text-5xl">
+            Engenharia full stack com pensamento de produto e operacao.
           </h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="surface-card rounded-[2rem] p-8 sm:p-10"
           >
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Sou desenvolvedor <strong>FullStack</strong> desde 2022, formado pela Trybe. Moro em
-              Fortaleza-CE e tenho experiência com aplicações web e mobile, sempre focado em
-              entregar soluções robustas e escaláveis.
+            <p className="text-lg leading-8 text-muted-foreground">
+              Sou desenvolvedor <strong className="text-foreground">full stack</strong>, formado
+              pela Trybe, atuando desde 2022 na construcao de aplicacoes web e mobile com foco em
+              produtos que precisam funcionar bem em producao.
             </p>
 
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Minhas principais tecnologias incluem{' '}
-              <strong>Node.js, TypeScript, Next.js, NestJS, PostgreSQL e MySQL</strong>. Desde 2025,
-              venho me aprofundando também em <strong>Go e Rust</strong>, explorando performance e
-              programação de sistemas.
+            <p className="text-lg leading-8 text-muted-foreground">
+              Minha base mais forte esta em <strong className="text-foreground">Node.js, TypeScript,
+              Next.js, NestJS, PostgreSQL, MySQL e React Native</strong>. Tambem venho explorando
+              Go e Rust para ampliar repertorio de performance, concorrencia e arquitetura.
             </p>
 
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-              <MapPin size={20} />
-              <span>Fortaleza, Ceará - Brasil</span>
-            </div>
+            <p className="text-lg leading-8 text-muted-foreground">
+              O diferencial que quero comunicar no portfólio e o mesmo que busco nos projetos:
+              capacidade de sair da interface e chegar ate deploy, monitoramento, integrações e
+              automacoes reais.
+            </p>
 
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-              <Calendar size={20} />
-              <span>Desenvolvendo desde 2022</span>
+            <div className="grid gap-4 pt-4 sm:grid-cols-2">
+              <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
+                <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                  <MapPin size={18} />
+                  Base
+                </div>
+                <p className="text-lg font-semibold text-foreground">Fortaleza, Ceara - Brasil</p>
+              </div>
+
+              <div className="rounded-3xl border border-border/70 bg-background/60 p-5">
+                <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                  <Calendar size={18} />
+                  Jornada
+                </div>
+                <p className="text-lg font-semibold text-foreground">Construindo desde 2022</p>
+              </div>
             </div>
           </motion.div>
 
@@ -56,29 +92,39 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 p-8 rounded-2xl"
+            className="space-y-5"
           >
-            <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
-              O que me motiva
-            </h3>
-            <ul className="space-y-4 text-gray-600 dark:text-gray-300">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                <span>Resolver problemas complexos com código limpo e eficiente</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                <span>Aprender continuamente novas tecnologias e padrões</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                <span>Contribuir para projetos que impactem positivamente as pessoas</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                <span>Colaborar em equipes diversas e multidisciplinares</span>
-              </li>
-            </ul>
+            {strengths.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className="surface-card rounded-[2rem] p-7"
+                >
+                  <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                  <p className="mt-3 leading-7 text-muted-foreground">{item.description}</p>
+                </motion.div>
+              );
+            })}
+
+            <div className="rounded-[2rem] border border-dashed border-primary/35 bg-primary/8 p-7">
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary/80">
+                Direcao
+              </p>
+              <p className="mt-3 text-base leading-7 text-muted-foreground">
+                Meu objetivo aqui e posicionar melhor a profundidade tecnica dos projetos: nao so o
+                que foi construido, mas como cada produto foi sustentado, operado e levado a
+                producao.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

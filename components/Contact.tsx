@@ -2,13 +2,35 @@
 
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Send, BriefcaseBusiness } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface FormData {
   name: string;
   email: string;
   message: string;
 }
+
+const channels = [
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'technasc93@gmail.com',
+    href: 'mailto:technasc93@gmail.com',
+  },
+  {
+    icon: Linkedin,
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/henriquen-dev',
+    href: 'https://www.linkedin.com/in/henriquen-dev/',
+  },
+  {
+    icon: Github,
+    label: 'GitHub',
+    value: 'github.com/HenriqueNasciment0',
+    href: 'https://github.com/HenriqueNasciment0',
+  },
+];
 
 export default function Contact() {
   const [formData, setFormData] = useState<FormData>({
@@ -19,8 +41,13 @@ export default function Contact() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Mensagem enviada! Entrarei em contato em breve.');
+
+    const subject = encodeURIComponent(`Contato via portfolio - ${formData.name}`);
+    const body = encodeURIComponent(
+      `Nome: ${formData.name}\nEmail: ${formData.email}\n\nMensagem:\n${formData.message}`
+    );
+
+    window.location.href = `mailto:technasc93@gmail.com?subject=${subject}&body=${body}`;
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -32,101 +59,96 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto">
+    <section id="contact" className="px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 max-w-3xl"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            Vamos Conversar?
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
+            Contato
+          </p>
+          <h2 className="text-3xl font-semibold text-foreground md:text-5xl">
+            Vamos falar sobre produto, operacao ou uma nova oportunidade.
           </h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Estou sempre aberto a novas oportunidades e projetos interessantes. Entre em contato e
-            vamos criar algo incrível juntos!
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">
+            Se voce precisa de alguem para construir uma aplicacao do zero, evoluir um sistema ja
+            em producao ou organizar a camada tecnica de um produto, faz sentido conversarmos.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
-                Informações de Contato
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    <Mail className="text-blue-600 dark:text-blue-400" size={20} />
-                  </div>
-                  <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Email</p>
-                    <p className="text-gray-900 dark:text-white font-medium">
-                      henrique@exemplo.com
-                    </p>
-                  </div>
+            <div className="surface-card rounded-[2rem] p-8">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                  <BriefcaseBusiness size={22} />
                 </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    <MapPin className="text-blue-600 dark:text-blue-400" size={20} />
-                  </div>
-                  <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Localização</p>
-                    <p className="text-gray-900 dark:text-white font-medium">
-                      Fortaleza, CE - Brasil
-                    </p>
-                  </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground">Disponivel para projetos</h3>
+                  <p className="text-sm text-muted-foreground">Freelas, consultoria e oportunidades CLT/PJ</p>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <h4 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">
-                Redes Sociais
-              </h4>
-              <div className="flex gap-4">
-                {[
-                  { icon: Github, href: '#', label: 'GitHub', color: 'hover:bg-gray-800' },
-                  { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:bg-blue-600' },
-                  { icon: Mail, href: '#', label: 'Email', color: 'hover:bg-red-600' },
-                ].map(({ icon: Icon, href, label, color }) => (
-                  <motion.a
+              <div className="space-y-4">
+                {channels.map(({ icon: Icon, label, value, href }) => (
+                  <a
                     key={label}
                     href={href}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all text-gray-700 dark:text-gray-300 hover:text-white ${color}`}
-                    aria-label={label}
+                    target={label !== 'Email' ? '_blank' : undefined}
+                    rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
+                    className="flex items-center gap-4 rounded-3xl border border-border/70 bg-background/70 p-4 transition-colors hover:border-primary/30"
                   >
-                    <Icon size={20} />
-                  </motion.a>
+                    <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">{label}</p>
+                      <p className="font-medium text-foreground">{value}</p>
+                    </div>
+                  </a>
                 ))}
+              </div>
+
+              <div className="mt-6 rounded-3xl border border-dashed border-primary/35 bg-primary/8 p-5">
+                <div className="flex items-center gap-3">
+                  <MapPin className="size-5 text-primary" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Base atual</p>
+                    <p className="font-medium text-foreground">Fortaleza, CE - Brasil</p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg"
+            className="surface-card rounded-[2rem] p-8 sm:p-10"
           >
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold text-foreground">Escreva sua mensagem</h3>
+              <p className="mt-3 text-muted-foreground">
+                O envio abre seu cliente de email com os dados ja preenchidos, sem depender de uma
+                API fake no front-end.
+              </p>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="mb-2 block text-sm font-medium text-foreground">
                   Nome
                 </label>
                 <input
@@ -135,13 +157,13 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white transition-all"
+                  className="w-full rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                   placeholder="Seu nome completo"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="mb-2 block text-sm font-medium text-foreground">
                   Email
                 </label>
                 <input
@@ -150,13 +172,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white transition-all"
+                  className="w-full rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                   placeholder="seu@email.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="mb-2 block text-sm font-medium text-foreground">
                   Mensagem
                 </label>
                 <textarea
@@ -164,20 +186,20 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={4}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white transition-all resize-none"
+                  rows={5}
+                  className="w-full resize-none rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                   placeholder="Conte-me sobre seu projeto ou ideia..."
                 />
               </div>
 
-              <motion.button
+              <Button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
+                size="lg"
+                className="w-full rounded-2xl text-sm font-semibold shadow-lg shadow-primary/20"
               >
-                Enviar Mensagem
-              </motion.button>
+                Enviar por email
+                <Send className="size-4" />
+              </Button>
             </form>
           </motion.div>
         </div>
