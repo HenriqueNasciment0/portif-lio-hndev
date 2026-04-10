@@ -3,26 +3,28 @@ import { ThemeProvider } from 'next-themes';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Henrique Nascimento - Desenvolvedor FullStack',
+  metadataBase: new URL('https://henriquedev.vercel.app'),
+  title: 'Henrique Nascimento | Full Stack Engineer',
   description:
-    'Desenvolvedor FullStack especializado em Node.js, Next.js, TypeScript e tecnologias modernas. Criando soluções elegantes e eficientes.',
-  keywords: 'desenvolvedor, fullstack, nodejs, nextjs, typescript, react, programador, fortaleza',
+    'Portfólio de Henrique Nascimento, engenheiro full stack com foco em produtos digitais, arquitetura backend, interfaces modernas e operações em produção.',
+  keywords:
+    'Henrique Nascimento, desenvolvedor full stack, typescript, next.js, node.js, react, nestjs, fortaleza',
   authors: [{ name: 'Henrique Nascimento' }],
   creator: 'Henrique Nascimento',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://seudominio.com',
-    title: 'Henrique Nascimento - Desenvolvedor FullStack',
+    url: 'https://henriquedev.vercel.app',
+    title: 'Henrique Nascimento | Full Stack Engineer',
     description:
-      'Desenvolvedor FullStack especializado em Node.js, Next.js, TypeScript e tecnologias modernas.',
+      'Engenharia full stack para produtos digitais, plataformas SaaS, automações e aplicações web modernas.',
     siteName: 'Henrique Nascimento Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Henrique Nascimento - Desenvolvedor FullStack',
+    title: 'Henrique Nascimento | Full Stack Engineer',
     description:
-      'Desenvolvedor FullStack especializado em Node.js, Next.js, TypeScript e tecnologias modernas.',
+      'Portfólio com cases em SaaS, telehealth, automação de documentos, web apps e mobile.',
   },
   robots: {
     index: true,
@@ -36,9 +38,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange={false}
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+          enableColorScheme
         >
           {children}
         </ThemeProvider>
