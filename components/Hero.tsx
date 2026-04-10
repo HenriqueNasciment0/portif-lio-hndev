@@ -16,7 +16,7 @@ const roleWords = [
 const metrics = [
   { label: 'Em construcao desde', value: '2022' },
   { label: 'Foco principal', value: 'SaaS + Web' },
-  { label: 'Entrega', value: 'Produto ao deploy' },
+  { label: 'Entrega', value: 'Do produto ao deploy' },
 ];
 
 const socialLinks = [
@@ -53,7 +53,7 @@ export default function Hero() {
         <div className="absolute inset-0 opacity-[0.18] dark:opacity-[0.08] [background-image:linear-gradient(rgba(100,116,139,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.18)_1px,transparent_1px)] [background-size:72px_72px]" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:min-h-[42rem] lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,24rem)] lg:gap-16 xl:grid-cols-[minmax(0,1.2fr)_minmax(22rem,26rem)]">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:min-h-[39rem] lg:grid-cols-[minmax(0,1.18fr)_minmax(18rem,21rem)] lg:gap-14 xl:grid-cols-[minmax(0,1.22fr)_minmax(19rem,22rem)]">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -172,17 +172,10 @@ export default function Hero() {
           initial={{ opacity: 0, x: 32 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
-          className="surface-card surface-glow order-1 rounded-[2rem] p-5 sm:p-6 lg:order-2 lg:self-center"
+          className="surface-card surface-glow order-1 rounded-[2rem] p-4 sm:p-5 lg:order-2 lg:max-h-[calc(100vh-8.5rem)] lg:self-center lg:overflow-hidden"
         >
-          <div className="mb-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
-              Perfil
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground">Perfil de entrega</h2>
-          </div>
-
-          <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-border/70 bg-background/60">
-            <div className="relative aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5]">
+          <div className="mb-4 overflow-hidden rounded-[1.5rem] border border-border/70 bg-background/60">
+            <div className="relative aspect-[4/5] sm:aspect-[5/6] lg:aspect-[0.92]">
               <Image
                 src="/images/profile/henrique-profile.webp"
                 alt="Foto de perfil de Henrique Nascimento"
@@ -191,35 +184,37 @@ export default function Hero() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 28rem, 26rem"
                 className="object-cover object-center lg:object-top"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5">
-                <p className="text-lg font-semibold text-white">Henrique Nascimento</p>
-                <p className="mt-1 text-sm text-white/80">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-4">
+                <p className="text-base font-semibold text-white">Henrique Nascimento</p>
+                <p className="mt-1 text-xs leading-5 text-white/80 sm:text-sm">
                   Full stack engineer com foco em produto, deploy e operacao.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {metrics.map((item, index) => (
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.35 + index * 0.12 }}
-                className="rounded-3xl border border-border/70 bg-background/60 p-4 backdrop-blur"
+                className="rounded-[1.3rem] border border-border/70 bg-background/60 p-3 backdrop-blur"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:text-[11px]">
                   {item.label}
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-foreground">{item.value}</p>
+                <p className="mt-2 text-xl font-semibold leading-tight text-foreground sm:text-2xl">
+                  {item.value}
+                </p>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-6 rounded-3xl border border-dashed border-primary/35 bg-primary/8 p-4">
+          <div className="mt-4 rounded-[1.3rem] border border-dashed border-primary/35 bg-primary/8 p-3">
             <p className="text-sm font-semibold text-foreground">Stack principal</p>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+            <p className="mt-2 text-xs leading-6 text-muted-foreground sm:text-sm">
               TypeScript, Node.js, Next.js, NestJS, PostgreSQL, automacao com n8n e operacao em
               Linux/VPS.
             </p>
