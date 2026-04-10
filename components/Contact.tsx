@@ -139,10 +139,10 @@ export default function Contact() {
             className="surface-card rounded-[2rem] p-8 sm:p-10"
           >
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-foreground">Escreva sua mensagem</h3>
+              <h3 className="text-2xl font-semibold text-foreground">Iniciar uma conversa</h3>
               <p className="mt-3 text-muted-foreground">
-                O envio abre seu cliente de email com os dados ja preenchidos, sem depender de uma
-                API fake no front-end.
+                Preencha os campos abaixo para abrir um email com a mensagem pronta. Assim fica
+                facil enviar contexto inicial sobre projeto, vaga ou parceria.
               </p>
             </div>
 
@@ -188,7 +188,7 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full resize-none rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
-                  placeholder="Conte-me sobre seu projeto ou ideia..."
+                  placeholder="Conte brevemente o objetivo, prazo, stack ou contexto da oportunidade..."
                 />
               </div>
 

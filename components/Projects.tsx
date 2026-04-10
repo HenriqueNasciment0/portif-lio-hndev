@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Clock3, Github, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Clock3, Github, ImageIcon } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -11,6 +11,33 @@ import {
 } from './ui/card';
 import { Button } from './ui/button';
 import { featuredProjects, inProgressProjects } from '@/lib/site-data';
+
+function ProjectImage({
+  src,
+  title,
+  hint,
+}: {
+  src: string;
+  title: string;
+  hint: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[1.6rem] border border-border/70 bg-background/70">
+      <div className="flex aspect-[16/10] items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
+        <div className="space-y-3">
+          <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <ImageIcon className="size-5" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-foreground">{title}</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{hint}</p>
+            <p className="mt-2 text-xs font-medium text-foreground">{src.replace(/^\//, '')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Projects() {
   return (
@@ -25,16 +52,11 @@ export default function Projects() {
         >
           <div className="max-w-3xl">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
-              Cases selecionados
+              Projetos em destaque
             </p>
             <h2 className="text-3xl font-semibold text-foreground md:text-5xl">
-              Projetos posicionados para comunicar produto, execucao tecnica e operacao real.
+              Produtos digitais construidos com foco em entrega, conversao e operacao real.
             </h2>
-          </div>
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur">
-            <Sparkles className="size-4 text-primary" />
-            Cases em producao e produtos em evolucao
           </div>
         </motion.div>
 
@@ -50,6 +72,12 @@ export default function Projects() {
             >
               <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
                 <CardHeader className="px-6 pt-6">
+                  <ProjectImage
+                    src={project.imageSrc}
+                    title={`Preview de ${project.title}`}
+                    hint={project.imageHint}
+                  />
+
                   <div className="mb-5 flex flex-wrap items-center gap-3">
                     <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
                       {project.status}
@@ -67,7 +95,7 @@ export default function Projects() {
 
                 <CardContent className="space-y-6 px-6 pb-6">
                   <div className="rounded-3xl border border-border/70 bg-background/70 p-5">
-                    <p className="text-sm font-semibold text-foreground">Por que esse case importa</p>
+                    <p className="text-sm font-semibold text-foreground">Escopo do projeto</p>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{project.impact}</p>
                   </div>
 
@@ -139,7 +167,7 @@ export default function Projects() {
             <div>
               <h3 className="text-2xl font-semibold text-foreground">Aplicacoes em andamento</h3>
               <p className="text-sm text-muted-foreground">
-                Mostrar pipeline tambem ajuda a reforcar continuidade e profundidade de produto.
+                Projetos em evolucao que ampliam o escopo do portfólio em produto, operacao e mobile.
               </p>
             </div>
           </div>
@@ -155,6 +183,11 @@ export default function Projects() {
               >
                 <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
                   <CardHeader className="px-6 pt-6">
+                    <ProjectImage
+                      src={project.imageSrc}
+                      title={`Preview de ${project.title}`}
+                      hint={project.imageHint}
+                    />
                     <span className="w-fit rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-semibold text-muted-foreground">
                       {project.status}
                     </span>

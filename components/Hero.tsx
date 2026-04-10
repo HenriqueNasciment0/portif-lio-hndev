@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ArrowRight, ChevronDown, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronDown, Github, ImageIcon, Linkedin, Mail } from 'lucide-react';
 import TextPressure from './TextAnimations/TextPressure/TextPressure';
 import { Button } from './ui/button';
 
@@ -59,22 +59,8 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-4xl"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/80 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur"
-          >
-            <Sparkles className="size-4 text-primary" />
-            Full stack engineering para produto, operacao e escala
-          </motion.div>
-
           <div className="space-y-6">
             <div className="max-w-[900px]">
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.42em] text-primary/80">
-                Henrique Nascimento
-              </p>
-
               <div className="rounded-[2rem] border border-border/70 bg-card/55 px-4 py-5 shadow-2xl shadow-primary/10 backdrop-blur-md sm:px-6">
                 <div className="hidden sm:block">
                   <TextPressure
@@ -187,16 +173,30 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
           className="surface-card surface-glow rounded-[2rem] p-6"
         >
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
-                Snapshot
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-foreground">Perfil de entrega</h2>
-            </div>
+          <div className="mb-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
+              Perfil
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground">Perfil de entrega</h2>
+          </div>
 
-            <div className="rounded-2xl bg-primary px-3 py-2 text-sm font-black text-primary-foreground">
-              HN
+          <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-dashed border-border/70 bg-background/60">
+            <div className="flex aspect-[4/5] items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),transparent_55%)] p-6 text-center">
+              <div className="space-y-3">
+                <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <ImageIcon className="size-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Foto de perfil</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    Coloque sua foto em
+                    <br />
+                    <span className="font-medium text-foreground">
+                      public/images/profile/henrique-profile.webp
+                    </span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
