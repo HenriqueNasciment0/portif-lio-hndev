@@ -1,6 +1,11 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Blocks, Database, Globe, Server, Smartphone } from 'lucide-react';
+import { Card } from './ui/card';
+import { Badge } from './ui/badge';
+import SplitText from './ReactBits/SplitText';
+import GridPattern from './ReactBits/GridPattern';
+import { STAGGER_CONTAINER, STAGGER_ITEM, VIEWPORT } from '@/constants/animation';
 
 const skillCategories = [
   {
@@ -39,8 +44,18 @@ const skillCategories = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <section id="skills" className="relative px-4 py-24 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background GridPattern */}
+      <GridPattern
+        className="text-muted-foreground"
+        opacity={0.1}
+        squares={[
+          [0, 1], [1, 3], [3, 0], [4, 4],
+          [5, 2], [6, 5], [8, 1], [10, 3]
+        ]}
+      />
+
+      <div className="relative mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,9 +67,10 @@ export default function Skills() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
               Stack principal
             </p>
-            <h2 className="text-3xl font-semibold text-foreground md:text-5xl">
-              Tecnologias escolhidas para construir, publicar e manter produtos.
-            </h2>
+            <SplitText
+              text="Tecnologias escolhidas para construir, publicar e manter produtos."
+              className="text-2xl md:text-3xl lg:text-5xl font-semibold text-foreground"
+            />
           </div>
 
           <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur">
@@ -69,28 +85,38 @@ export default function Skills() {
               key={category.title}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+              viewport={VIEWPORT}
               whileHover={{ y: -8 }}
-              className={`surface-card rounded-[2rem] p-6 ${category.border}`}
             >
-              <div className={`mb-5 flex size-13 items-center justify-center rounded-2xl ${category.accent}`}>
-                <category.icon size={24} />
-              </div>
+              <Card className={`h-full rounded-[2rem] p-6 ${category.border}`}>
+                <div className={`mb-5 flex size-13 items-center justify-center rounded-2xl ${category.accent}`}>
+                  <category.icon size={24} />
+                </div>
 
-              <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{category.description}</p>
+                <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{category.description}</p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <div
-                    key={skill}
-                    className="rounded-full border border-border/70 bg-background/70 px-3 py-2 text-xs font-medium text-muted-foreground"
-                  >
-                    {skill}
-                  </div>
-                ))}
-              </div>
+                <motion.div
+                  variants={STAGGER_CONTAINER}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={VIEWPORT}
+                  className="mt-6 flex flex-wrap gap-2"
+                >
+                  {category.skills.map((skill) => (
+                    <motion.div
+                      key={skill}
+                      variants={STAGGER_ITEM}
+                      whileHover={{ y: -3 }}
+                    >
+                      <Badge variant="secondary" className="cursor-default">
+                        {skill}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </Card>
             </motion.div>
           ))}
         </div>

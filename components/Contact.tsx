@@ -3,7 +3,14 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin, Send, BriefcaseBusiness } from 'lucide-react';
-import { Button } from './ui/button';
+import { Card } from './ui/card';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { MotionButton } from './ui/motion-button';
+import NoisyGradient from './ReactBits/NoisyGradient';
+import RotatingText from './ReactBits/RotatingText';
+import { FADE_UP, VIEWPORT } from '@/constants/animation';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 interface FormData {
   name: string;
@@ -33,6 +40,7 @@ const channels = [
 ];
 
 export default function Contact() {
+  const isMobile = useIsMobile();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -59,20 +67,27 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <section id="contact" className="relative px-4 py-24 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background NoisyGradient */}
+      <NoisyGradient opacity={isMobile ? 0.25 : 0.4} />
+
+      <div className="relative mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...FADE_UP}
+          whileInView="animate"
+          viewport={VIEWPORT}
           className="mb-16 max-w-3xl"
         >
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
             Contato
           </p>
-          <h2 className="text-3xl font-semibold text-foreground md:text-5xl">
-            Vamos falar sobre produto, operacao ou uma nova oportunidade.
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold text-foreground">
+            Vamos falar sobre{' '}
+            <RotatingText
+              words={['produto', 'operação', 'oportunidade']}
+              className="text-primary"
+            />
+            .
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
             Se voce precisa de alguem para construir uma aplicacao do zero, evoluir um sistema ja
@@ -82,13 +97,13 @@ export default function Contact() {
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            {...FADE_UP}
+            whileInView="animate"
+            viewport={VIEWPORT}
+            transition={{ ...FADE_UP.transition, delay: 0.1 }}
             className="space-y-6"
           >
-            <div className="surface-card rounded-[2rem] p-6 sm:p-8">
+            <Card className="rounded-[2rem] p-6 sm:p-8">
               <div className="mb-6 flex items-center gap-3">
                 <div className="flex shrink-0 size-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <BriefcaseBusiness size={22} />
@@ -101,21 +116,25 @@ export default function Contact() {
 
               <div className="space-y-4">
                 {channels.map(({ icon: Icon, label, value, href }) => (
-                  <a
+                  <motion.a
                     key={label}
                     href={href}
                     target={label !== 'Email' ? '_blank' : undefined}
                     rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
+                    whileHover={{ x: 5 }}
                     className="flex items-center gap-4 rounded-3xl border border-border/70 bg-background/70 p-4 transition-colors hover:border-primary/30"
                   >
-                    <div className="flex shrink-0 size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="flex shrink-0 size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary"
+                    >
                       <Icon size={20} />
-                    </div>
+                    </motion.div>
                     <div className="min-w-0">
                       <p className="text-sm text-muted-foreground">{label}</p>
                       <p className="truncate font-medium text-foreground">{value}</p>
                     </div>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
 
@@ -128,16 +147,16 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Card>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="surface-card rounded-[2rem] p-6 sm:p-8 lg:p-10"
+            {...FADE_UP}
+            whileInView="animate"
+            viewport={VIEWPORT}
+            transition={{ ...FADE_UP.transition, delay: 0.2 }}
           >
+            <Card className="rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-foreground">Iniciar uma conversa</h3>
               <p className="mt-3 text-muted-foreground">
@@ -146,61 +165,63 @@ export default function Contact() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-foreground">
-                  Nome
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
-                  placeholder="Seu nome completo"
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-foreground">
+                    Nome
+                  </label>
+                  <Input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="rounded-2xl"
+                    placeholder="Seu nome completo"
+                  />
+                </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-foreground">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
-                  placeholder="seu@email.com"
-                />
-              </div>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-foreground">
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="rounded-2xl"
+                    placeholder="seu@email.com"
+                  />
+                </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-foreground">
-                  Mensagem
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full resize-none rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-foreground transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
-                  placeholder="Conte brevemente o objetivo, prazo, stack ou contexto da oportunidade..."
-                />
-              </div>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-foreground">
+                    Mensagem
+                  </label>
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="rounded-2xl resize-none"
+                    placeholder="Conte brevemente o objetivo, prazo, stack ou contexto da oportunidade..."
+                  />
+                </div>
 
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full rounded-2xl text-sm font-semibold shadow-lg shadow-primary/20"
-              >
-                Enviar por email
-                <Send className="size-4" />
-              </Button>
-            </form>
+                <MotionButton
+                  type="submit"
+                  size="lg"
+                  whileTap={{ scale: 0.96 }}
+                  className="w-full rounded-2xl text-sm font-semibold shadow-lg shadow-primary/20"
+                >
+                  Enviar por email
+                  <Send className="size-4" />
+                </MotionButton>
+              </form>
+            </Card>
           </motion.div>
         </div>
       </div>

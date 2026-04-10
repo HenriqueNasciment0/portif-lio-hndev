@@ -19,12 +19,21 @@ export const metadata: Metadata = {
     description:
       'Engenharia full stack para produtos digitais, plataformas SaaS, automações e aplicações web modernas.',
     siteName: 'Henrique Nascimento Portfolio',
+    images: [
+      {
+        url: '/images/profile/henrique-profile.webp',
+        width: 800,
+        height: 600,
+        alt: 'Henrique Nascimento',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Henrique Nascimento | Full Stack Engineer',
     description:
       'Portfólio com cases em SaaS, telehealth, automação de documentos, web apps e mobile.',
+    images: ['/images/profile/henrique-profile.webp'],
   },
   robots: {
     index: true,
@@ -32,18 +41,20 @@ export const metadata: Metadata = {
   },
 };
 
+import Providers from '@/components/Providers';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
           enableColorScheme
         >
-          {children}
+          <Providers>{children}</Providers>
         </ThemeProvider>
       </body>
     </html>

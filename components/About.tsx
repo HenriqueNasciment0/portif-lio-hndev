@@ -1,6 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Activity, Calendar, MapPin, Rocket, ShieldCheck } from 'lucide-react';
+import SpotlightCard from './ReactBits/SpotlightCard';
+import { FADE_UP, VIEWPORT } from '@/constants/animation';
 
 const strengths = [
   {
@@ -28,10 +30,9 @@ export default function About() {
     <section id="about" className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...FADE_UP}
+          whileInView="animate"
+          viewport={VIEWPORT}
           className="mb-16 max-w-3xl"
         >
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary/80">
@@ -41,6 +42,15 @@ export default function About() {
             Engenharia full stack com pensamento de produto e operacao.
           </h2>
         </motion.div>
+
+        {/* Separador animado */}
+        <motion.hr
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={VIEWPORT}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="mb-12 h-[2px] border-0 bg-gradient-to-r from-transparent via-border to-transparent origin-center"
+        />
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Coluna esquerda: bio + Produto com impacto */}
@@ -94,17 +104,18 @@ export default function About() {
 
             {/* Produto com impacto — abaixo do card de bio */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.16 }}
-              viewport={{ once: true }}
-              className="surface-card rounded-[2rem] p-7"
+              {...FADE_UP}
+              whileInView="animate"
+              viewport={VIEWPORT}
+              transition={{ ...FADE_UP.transition, delay: 0.2 }}
             >
-              <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
-                <Activity size={24} />
-              </div>
-              <h3 className="text-xl font-semibold text-foreground">{strengths[2].title}</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">{strengths[2].description}</p>
+              <SpotlightCard className="rounded-[2rem] p-7">
+                <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                  <Activity size={24} />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">{strengths[2].title}</h3>
+                <p className="mt-3 leading-7 text-muted-foreground">{strengths[2].description}</p>
+              </SpotlightCard>
             </motion.div>
           </motion.div>
 
@@ -121,17 +132,18 @@ export default function About() {
               return (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className="surface-card rounded-[2rem] p-7"
+                  {...FADE_UP}
+                  whileInView="animate"
+                  viewport={VIEWPORT}
+                  transition={{ ...FADE_UP.transition, delay: index * 0.1 }}
                 >
-                  <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
-                    <Icon size={24} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-muted-foreground">{item.description}</p>
+                  <SpotlightCard className="rounded-[2rem] p-7">
+                    <div className="mb-5 flex size-13 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                      <Icon size={24} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                    <p className="mt-3 leading-7 text-muted-foreground">{item.description}</p>
+                  </SpotlightCard>
                 </motion.div>
               );
             })}

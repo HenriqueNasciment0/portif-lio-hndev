@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Clock3, Github, ImageIcon } from 'lucide-react';
+import { Parallax } from 'react-scroll-parallax';
 import {
   Card,
   CardContent,
@@ -12,7 +13,12 @@ import {
   CardTitle,
 } from './ui/card';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import TiltCard from './ReactBits/TiltCard';
+import ShinyText from './ReactBits/ShinyText';
 import { featuredProjects, inProgressProjects } from '@/lib/site-data';
+import { useIsMobile, useHasPointer } from '@/hooks/useMediaQuery';
+import { FADE_UP, VIEWPORT, STAGGER_CONTAINER, STAGGER_ITEM } from '@/constants/animation';
 
 function ProjectImage({
   src,
@@ -23,22 +29,24 @@ function ProjectImage({
 }) {
   const [hasError, setHasError] = useState(false);
 
-  return (
-    <div className="overflow-hidden rounded-[1.6rem] border border-border/70 bg-background/70">
-      <div className="relative aspect-[16/10]">
-        {!hasError ? (
-          <>
-            <Image
-              src={src}
-              alt={title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 620px"
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-              onError={() => setHasError(true)}
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-          </>
-        ) : (
+  // Se src estiver vazio, mostrar placeholder imediatamente
+  const showPlaceholder = !src || hasError;
+
+  const imageContent = (
+    <div className="relative aspect-[16/10]">
+      {!showPlaceholder ? (
+        <>
+          <Image
+            src={src}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 620px"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            onError={() => setHasError(true)}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        </>
+      ) : (
           <div className="flex h-full items-center justify-center bg-zinc-950 p-6 text-center [background-image:radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_60%)]">
             <div className="space-y-3">
               <div className="mx-auto flex size-11 items-center justify-center rounded-2xl bg-white/8 text-white/50">
@@ -53,12 +61,20 @@ function ProjectImage({
             </div>
           </div>
         )}
-      </div>
+    </div>
+  );
+
+  return (
+    <div className="overflow-hidden rounded-[1.6rem] border border-border/70 bg-background/70">
+      {imageContent}
     </div>
   );
 }
 
 export default function Projects() {
+  const hasPointer = useHasPointer();
+  const isMobile = useIsMobile();
+
   return (
     <section id="projects" className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -80,28 +96,41 @@ export default function Projects() {
         </motion.div>
 
         <div className="grid gap-6 xl:grid-cols-2">
-          {featuredProjects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8 }}
-              className="group"
-            >
-              <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
-                <CardHeader className="px-6 pt-6">
-                  <ProjectImage src={project.imageSrc} title={`Preview de ${project.title}`} />
+          {featuredProjects.map((project, index) => {
+            const isFeatured = index === 0; // Primeiro projeto é o case principal
 
-                  <div className="mb-5 flex flex-wrap items-center gap-3">
-                    <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                      {project.status}
-                    </span>
-                    <span className="rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
-                      {project.category}
-                    </span>
-                  </div>
+            return (
+              <motion.div
+                key={project.title}
+                {...FADE_UP}
+                whileInView="animate"
+                viewport={VIEWPORT}
+                transition={{ ...FADE_UP.transition, delay: index * 0.15 }}
+                className="group h-full flex flex-col"
+              >
+                <Parallax speed={isMobile ? 0 : (index % 2 !== 0 ? 5 : 0)} className="h-full flex flex-col">
+                  <TiltCard disabled={!hasPointer} className="h-full flex flex-col">
+                    <Card className="surface-card h-full flex flex-col rounded-[2rem] border-border/70 py-0 shadow-none">
+                      <CardHeader className="px-6 pt-6">
+                        <ProjectImage
+                          src={project.imageSrc}
+                          title={`Preview de ${project.title}`}
+                        />
+
+                      <div className="mb-5 flex flex-wrap items-center gap-3">
+                        {isFeatured && (
+                          <motion.div
+                            animate={{ scale: [1, 1.03, 1] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                          >
+                            <Badge className="border-amber-400 bg-amber-400/10 text-amber-400 hover:bg-amber-400/20">
+                              Case principal
+                            </Badge>
+                          </motion.div>
+                        )}
+                        <Badge>{project.status}</Badge>
+                        <Badge variant="secondary">{project.category}</Badge>
+                      </div>
 
                   <CardTitle className="text-2xl text-foreground">{project.title}</CardTitle>
                   <CardDescription className="text-base leading-7 text-muted-foreground">
@@ -109,7 +138,7 @@ export default function Projects() {
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-6 px-6 pb-6">
+                <CardContent className="space-y-6 px-6 pb-6 flex-grow">
                   <div className="rounded-3xl border border-border/70 bg-background/70 p-5">
                     <p className="text-sm font-semibold text-foreground">Escopo do projeto</p>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{project.impact}</p>
@@ -127,16 +156,19 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-border/70 bg-background/70 px-3 py-2 text-xs font-medium text-muted-foreground"
+                      <motion.div
+                        variants={STAGGER_CONTAINER}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={VIEWPORT}
+                        className="flex flex-wrap gap-2"
                       >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                        {project.technologies.map((tech) => (
+                          <motion.div key={tech} variants={STAGGER_ITEM}>
+                            <Badge variant="outline">{tech}</Badge>
+                          </motion.div>
+                        ))}
+                      </motion.div>
 
                   {project.note && (
                     <div className="rounded-3xl border border-dashed border-primary/35 bg-primary/8 p-4 text-sm leading-7 text-muted-foreground">
@@ -163,10 +195,13 @@ export default function Projects() {
                       </a>
                     </Button>
                   )}
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
+                    </CardFooter>
+                  </Card>
+                  </TiltCard>
+                </Parallax>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div
@@ -196,32 +231,39 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="group"
+                className="group h-full flex flex-col"
               >
-                <Card className="surface-card h-full rounded-[2rem] border-border/70 py-0 shadow-none">
+                <Card className="surface-card h-full flex flex-col rounded-[2rem] border-border/70 py-0 shadow-none">
                   <CardHeader className="px-6 pt-6">
                     <ProjectImage src={project.imageSrc} title={`Preview de ${project.title}`} />
-                    <span className="w-fit rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-semibold text-muted-foreground">
+                    <Badge variant="secondary" className="w-fit">
                       {project.status}
-                    </span>
-                    <CardTitle className="text-xl text-foreground">{project.title}</CardTitle>
+                    </Badge>
+                    <CardTitle className="text-xl text-foreground">
+                      <ShinyText>{project.title}</ShinyText>
+                    </CardTitle>
                     <CardDescription className="text-sm leading-7 text-muted-foreground">
                       {project.category}
                     </CardDescription>
                   </CardHeader>
 
-                  <CardContent className="space-y-5 px-6 pb-6">
-                    <p className="text-sm leading-7 text-muted-foreground">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
+                  <CardContent className="space-y-5 px-6 pb-6 flex-grow">
+                    <p className="text-sm leading-7 text-muted-foreground opacity-75">
+                      {project.description}
+                    </p>
+                    <motion.div
+                      variants={STAGGER_CONTAINER}
+                      initial="initial"
+                      whileInView="animate"
+                      viewport={VIEWPORT}
+                      className="flex flex-wrap gap-2"
+                    >
                       {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-border/70 bg-background/70 px-3 py-2 text-xs font-medium text-muted-foreground"
-                        >
-                          {tech}
-                        </span>
+                        <motion.div key={tech} variants={STAGGER_ITEM}>
+                          <Badge variant="outline">{tech}</Badge>
+                        </motion.div>
                       ))}
-                    </div>
+                    </motion.div>
                   </CardContent>
                 </Card>
               </motion.div>

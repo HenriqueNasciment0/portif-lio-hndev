@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import React from 'react';
+import { FADE_UP, VIEWPORT } from '@/constants/animation';
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/HenriqueNasciment0', label: 'GitHub' },
@@ -13,7 +14,12 @@ const socialLinks = [
 const Footer: React.FC = () => {
   return (
     <footer className="border-t border-border/60 px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <motion.div
+        {...FADE_UP}
+        whileInView="animate"
+        viewport={VIEWPORT}
+        className="mx-auto max-w-7xl"
+      >
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <h3 className="text-xl font-semibold text-foreground">Henrique Nascimento</h3>
@@ -34,9 +40,13 @@ const Footer: React.FC = () => {
                 { label: 'Contato', href: '#contact' },
               ].map(({ label, href }) => (
                 <li key={label}>
-                  <a href={href} className="transition-colors hover:text-foreground">
+                  <motion.a
+                    href={href}
+                    whileHover={{ y: -2 }}
+                    className="inline-block transition-colors hover:text-foreground"
+                  >
                     {label}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
@@ -70,7 +80,7 @@ const Footer: React.FC = () => {
           <p>© {new Date().getFullYear()} Henrique Nascimento. Todos os direitos reservados.</p>
           <p className="mt-2">Construido com Next.js, TypeScript, Tailwind CSS e Framer Motion.</p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 };
